@@ -4,7 +4,8 @@ const ShortUrl = require('./models/shortUrl')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost/urlShortener', {
+// mongodb://localhost/urlShortener
+mongoose.connect('mongodb+srv://admin-aniket:test-123@cluster0.nvsdw.mongodb.net/urlShortener', {
     useNewUrlParser: true, useUnifiedTopology: true
 });
 
@@ -23,7 +24,7 @@ app.post('/shortUrls', async function (req, res) {
 
 app.get('/:shortUrl', async function (req, res) {
     const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
-    if(shortUrl == null) return res.sendStatus(404);
+    if (shortUrl == null) return res.sendStatus(404);
 
     shortUrl.clicks++;
     shortUrl.save();
